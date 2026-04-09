@@ -1,8 +1,10 @@
 import { motion } from 'motion/react';
-import { ArrowRight, BarChart3, Globe, MapPin, Menu, X, ChevronRight } from 'lucide-react';
+import { ArrowRight, BarChart3, Globe, MapPin, Menu, X, ChevronRight, Home, Briefcase, User, MessageSquare } from 'lucide-react';
 import { useState, useRef } from 'react';
 import Antigravity from './components/Antigravity';
 import VariableProximity from './components/VariableProximity';
+import ScrollReveal from './components/ScrollReveal';
+import Dock from './components/Dock';
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -228,17 +230,32 @@ export default function App() {
       <section id="sobre" className="py-24 px-6 border-t border-white/5 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8">
-              Não vendemos likes. <br />
-              <span className="text-white/40">Vendemos resultados.</span>
-            </h2>
+            <ScrollReveal
+              baseOpacity={0.1}
+              enableBlur
+              baseRotation={3}
+              blurStrength={4}
+              textClassName="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8"
+            >
+              Não vendemos likes. Vendemos resultados.
+            </ScrollReveal>
             <div className="space-y-6 text-white/60 font-light text-lg leading-relaxed">
-              <p>
+              <ScrollReveal
+                baseOpacity={0.1}
+                enableBlur
+                baseRotation={0}
+                blurStrength={2}
+              >
                 A Upmind nasceu com um propósito claro: descomplicar o marketing digital e focar no que traz retorno real para o seu negócio.
-              </p>
-              <p>
+              </ScrollReveal>
+              <ScrollReveal
+                baseOpacity={0.1}
+                enableBlur
+                baseRotation={0}
+                blurStrength={2}
+              >
                 Enquanto outras agências focam em métricas de vaidade, nós construímos máquinas de vendas. Unimos design de alta conversão, tráfego qualificado e presença local dominante.
-              </p>
+              </ScrollReveal>
             </div>
             
             <div className="grid grid-cols-2 gap-8 mt-12 pt-12 border-t border-white/10">
@@ -304,6 +321,21 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Dock */}
+      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <Dock 
+          items={[
+            { icon: <Home size={18} />, label: 'Início', onClick: () => window.scrollTo(0,0) },
+            { icon: <Briefcase size={18} />, label: 'Serviços', onClick: () => document.getElementById('servicos')?.scrollIntoView({ behavior: 'smooth' }) },
+            { icon: <User size={18} />, label: 'Sobre', onClick: () => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }) },
+            { icon: <MessageSquare size={18} />, label: 'Contato', onClick: () => document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' }) },
+          ]}
+          panelHeight={60}
+          baseItemSize={40}
+          magnification={60}
+        />
+      </div>
     </div>
   );
 }
